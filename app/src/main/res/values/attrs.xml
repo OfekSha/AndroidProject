@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="model_table_view">
+    <attr name="SeatsNumber" format="integer"/>
+    <attr name="tableNumber" format="integer"/>
+    <attr name="isFull" format="boolean"/>
+    <attr name="isSmokeZone" format="boolean"/>
+    <attr name="isNull" format="boolean"/>
+    </declare-styleable>
+</resources>
