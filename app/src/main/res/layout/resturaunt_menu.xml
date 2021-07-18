@@ -30,13 +30,6 @@
             android:layout_marginStart="100dp"
             android:text="Details" />
 
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="137dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="100dp"
-            android:text="Chat" />
-
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="397dp"
@@ -50,7 +43,7 @@
                 android:text="Choose Time To Order:" />
 
             <Spinner
-                android:id="@+id/spinner2"
+                android:id="@+id/time_choose"
                 android:layout_width="223dp"
                 android:layout_height="39dp"
                 android:entries="@array/time_array"
