@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <TableLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toTopOf="@+id/button8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="true"
+                app:isSmokeZone="true"
+                app:tableNumber="5" />
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="true"
+                app:isSmokeZone="true"
+                app:tableNumber="5"
+                />
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="false"
+                app:isSmokeZone="false"
+                app:tableNumber="1" />
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="true"
+                app:isSmokeZone="true"
+                app:tableNumber="5" />
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="true"
+                app:isSmokeZone="true"
+                app:tableNumber="5" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="true"
+                app:isSmokeZone="true"
+                app:tableNumber="5" />
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="true"
+                app:isSmokeZone="true"
+                app:tableNumber="5" />
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="true"
+                app:isSmokeZone="true"
+                app:tableNumber="5" />
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="true"
+                app:isSmokeZone="true"
+                app:tableNumber="5" />
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="true"
+                app:isSmokeZone="true"
+                app:tableNumber="5" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="true"
+                app:isSmokeZone="true"
+                app:tableNumber="5" />
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="5"
+                app:isFull="false"
+                app:isNull="false"
+                app:isSmokeZone="true"
+                app:tableNumber="2" />
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="true"
+                app:isSmokeZone="true"
+                app:tableNumber="5" />
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="true"
+                app:isSmokeZone="true"
+                app:tableNumber="5" />
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="true"
+                app:isSmokeZone="true"
+                app:tableNumber="5" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="true"
+                app:isSmokeZone="true"
+                app:tableNumber="5"
+                />
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="true"
+                app:isSmokeZone="true"
+                app:tableNumber="5" />
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="true"
+                app:isSmokeZone="true"
+                app:tableNumber="5" />
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="4"
+                app:isFull="true"
+                app:isNull="false"
+                app:isSmokeZone="true"
+                app:tableNumber="3" />
+
+            <com.example.androidproject.model_table_view
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:SeatsNumber="2"
+                app:isFull="true"
+                app:isNull="true"
+                app:isSmokeZone="true"
+                app:tableNumber="5" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Order"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
