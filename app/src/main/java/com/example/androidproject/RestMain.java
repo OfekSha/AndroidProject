@@ -3,9 +3,11 @@ package com.example.androidproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import java.io.FileInputStream;
@@ -16,13 +18,22 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-public class RestMain extends AppCompatActivity {
+public class RestMain extends AppCompatActivity implements View.OnClickListener {
     Spinner timeChoose;
     Context mainContext;
+    @Override
+    public void onClick(View v) {
+        if (v.getId()== R.id.btn_choose_table){
+            Intent intent = new Intent(this,TableModel.class);
+            startActivity(intent);
+            //startActivityForResult(intent,123);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.resturaunt_menu);
+        findViewById(R.id.btn_choose_table).setOnClickListener(this);
         timeChoose=findViewById(R.id.time_choose);
         mainContext=this;
         int loadLastTimeChoose=getRaw("choose_time",mainContext);
@@ -75,4 +86,6 @@ public class RestMain extends AppCompatActivity {
         }
         return data;
     }
+
+
 }
