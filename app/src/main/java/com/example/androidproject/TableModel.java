@@ -21,6 +21,9 @@ public class TableModel extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this,5));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemViewCacheSize(50000);
+        recyclerView.setDrawingCacheEnabled(true);
     }
 
 
@@ -28,7 +31,10 @@ public class TableModel extends AppCompatActivity {
         ArrayList<Table> test= new ArrayList<Table>();
         for (int i=0;i<50;i++){
             if (i%6== 5) test.add(null);
-            else test.add(new Table(i,i%5,i%3==1 ? true: false));
+            else {
+                test.add(new Table(i, i % 5, i % 3 == 1 ? true : false));
+                if (i%4==2)test.get(i).setFull(true);
+            }
         }
             return test;
     }
