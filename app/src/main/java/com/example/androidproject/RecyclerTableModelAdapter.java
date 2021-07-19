@@ -1,5 +1,7 @@
 package com.example.androidproject;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
@@ -10,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -138,4 +142,5 @@ public class RecyclerTableModelAdapter extends RecyclerView.Adapter<RecyclerTabl
     public int getItemCount() {
         return tables.size();
     }
+
 }

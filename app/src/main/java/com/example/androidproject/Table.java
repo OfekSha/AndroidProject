@@ -1,5 +1,7 @@
 package com.example.androidproject;
 
+import java.util.Objects;
+
 public class Table {
     private final int id;
     private int seats;
@@ -29,5 +31,18 @@ public class Table {
 
     public void setFull(boolean full) {
         isFull = full;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Table table = (Table) o;
+        return id == table.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
