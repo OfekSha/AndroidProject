@@ -8,32 +8,49 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 public class RecyclerTableModelAdapter extends RecyclerView.Adapter<RecyclerTableModelAdapter.ViewHolder>{
     private ArrayList<Table> tables;
+    private Table selectedTable;
+    private ViewHolder selectedHolder;
+    public Table getSelectedTable(){
+        return selectedTable;
+    }
     public RecyclerTableModelAdapter(ArrayList<Table> tables){
        this.tables = tables;
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView table_tv;
-        TextView seats_tv;
-        TextView smoke_tv;
-        TextView chair_tv;
-        final int RED= 0xffff0000;
-        final int GREEN= 0xff00ff00;
-
+        private TextView table_tv;
+        private TextView seats_tv;
+        private TextView smoke_tv;
+        private TextView chair_tv;
+        private final int RED= 0xffff0000;
+        private final int GREEN= 0xff00ff00;
+        private View view;
         public ViewHolder(View view) {
             super(view);
+            this.view=view;
             table_tv = (TextView) view.findViewById(R.id.table);
             seats_tv = (TextView) view.findViewById(R.id.seats);
             smoke_tv=(TextView) view.findViewById(R.id.smoke);
             chair_tv=(TextView) view.findViewById(R.id.chair);
 
         }
-
+        public void isSelected(boolean yes){
+            if (yes){
+                view.setBackground(ContextCompat.getDrawable(view.getContext(), R.drawable.table_border_selected) );
+            }
+            else{
+                view.setBackground(ContextCompat.getDrawable(view.getContext(), R.drawable.table_border) );
+            }
+        }
+        public View getView() {
+            return view;
+        }
 
         public void setTableNumber(int value) {
 
@@ -95,6 +112,17 @@ public class RecyclerTableModelAdapter extends RecyclerView.Adapter<RecyclerTabl
     @Override
     public void onBindViewHolder(@NonNull RecyclerTableModelAdapter.ViewHolder holder, int position) {
         final Table table = tables.get(position);
+        holder.getView().setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                if (selectedHolder!=null)
+                selectedHolder.isSelected(false);
+                selectedTable=table;
+                selectedHolder=holder;
+                selectedHolder.isSelected(true);
+            }
+        });
         if (table==null){
             holder.setIsNull(true);
         }
