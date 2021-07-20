@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,21 +32,37 @@ public class RestMain extends AppCompatActivity implements View.OnClickListener 
         }
     }
     @Override
+    protected void onResume() {
+     super.onResume();
+        Table order=StorageData.getSP(StorageData.SP_STRING_TABLE,this,Table.class);
+        int loadLastTimeChoose=StorageData.getRaw(StorageData.RAW_STRING,mainContext);
+        if (loadLastTimeChoose>=0)
+            timeChoose.setSelection(loadLastTimeChoose,false);
+        if (order!= null){
+            View view_order=findViewById(R.id.order);
+            view_order.setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.table)).setText("#"+order.getId());
+            ((TextView)findViewById(R.id.seats)).setText("Seats: "+order.getSeats());
+            ((TextView)findViewById(R.id.smoke)).setVisibility(order.isSmoke()?View.VISIBLE:View.INVISIBLE);
+            int tableOrderTime = (int) StorageData.getSP(StorageData.SP_STRING_TIME,this,int.class);
+            ((EditText) findViewById(R.id.et_time_order)).setText("" + getResources().getStringArray(R.array.time_array)[tableOrderTime]);
+
+        }
+        else findViewById(R.id.order).setVisibility(View.INVISIBLE);
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.resturaunt_menu);
         findViewById(R.id.btn_choose_table).setOnClickListener(this);
         timeChoose=findViewById(R.id.time_choose);
         mainContext=this;
-        int loadLastTimeChoose=getRaw("choose_time",mainContext);
-        if (loadLastTimeChoose>=0)
-        timeChoose.setSelection(loadLastTimeChoose,false);
         timeChoose.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                saveRaw("choose_time",position,mainContext);
+                StorageData.saveRaw(StorageData.RAW_STRING,position,mainContext);
             }
 
             @Override
@@ -53,39 +71,8 @@ public class RestMain extends AppCompatActivity implements View.OnClickListener 
             }
         });
     }
-    public  void saveRaw(String filename, int data , Context ctx) {
-        FileOutputStream fos;
-        try {
-            fos = ctx.openFileOutput(filename, Context.MODE_PRIVATE);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(data);
-            oos.close();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
-    public int getRaw(String filename , Context ctx) {
-        FileInputStream fos;
-        int data=0;
-        try {
-            fos = ctx.openFileInput(filename);
-            ObjectInputStream ois = new ObjectInputStream(fos);
-            data=(int) ois.readObject();
-            ois.close();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return -1;
-        }catch(IOException e){
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return data;
-    }
 
 
 }
