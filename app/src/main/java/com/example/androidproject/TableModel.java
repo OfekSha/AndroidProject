@@ -31,7 +31,7 @@ public class TableModel extends BaseActivity implements IRespondDialog {
             data.set(index,orderedTable);
         }
         recyclerAdapter = new RecyclerTableModelAdapter(data);
-
+        recyclerAdapter.setOrderedTable(orderedTable);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this,5));
         recyclerView.setHasFixedSize(true);
@@ -67,17 +67,21 @@ public class TableModel extends BaseActivity implements IRespondDialog {
     @Override
     public void responseYES() {
         // save data about table
+        if (recyclerAdapter.getOrderedTable()!=null){
+            recyclerAdapter.getOrderedTable().setFull(false);
+            int indexPrevOrder=recyclerAdapter.getTables().indexOf( recyclerAdapter.getOrderedTable());
+            recyclerAdapter.notifyItemChanged(indexPrevOrder);
+        }
         recyclerAdapter.getSelectedTable().setFull(true);
+        recyclerAdapter.setOrderedTable(recyclerAdapter.getSelectedTable());
         StorageData.saveSP(StorageData.SP_STRING_TABLE, recyclerAdapter.getSelectedTable() ,this);
         StorageData.saveSP(StorageData.SP_STRING_TIME, StorageData.getRaw(StorageData.RAW_STRING,this) ,this);
         toastMsg("order committed for table number "+ recyclerAdapter.getSelectedTable().getId());
         //updating recycler of data change
-        recyclerAdapter.tables=testTables();
-        int index=recyclerAdapter.tables.indexOf( recyclerAdapter.getSelectedTable());
-        if (index>-1){
-            recyclerAdapter.tables.set(index, recyclerAdapter.getSelectedTable());
-        }
-        recyclerAdapter.notifyDataSetChanged();
+
+        int indexOrder=recyclerAdapter.getTables().indexOf( recyclerAdapter.getSelectedTable());
+        recyclerAdapter.notifyItemChanged(indexOrder);
+
     }
     // response not to order accept ordering table
     @Override

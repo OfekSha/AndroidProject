@@ -94,11 +94,11 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/button9"
+            android:id="@+id/btn_clear_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="back" />
+            android:text="Clear Order" />
 
         <Button
             android:id="@+id/btn_choose_table"

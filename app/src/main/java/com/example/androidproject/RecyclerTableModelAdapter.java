@@ -18,11 +18,21 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 public class RecyclerTableModelAdapter extends RecyclerView.Adapter<RecyclerTableModelAdapter.ViewHolder>{
-    public ArrayList<Table> tables;
+    private ArrayList<Table> tables;
     private Table selectedTable;
+    private Table orderedTable;
     private ViewHolder selectedHolder;
     public Table getSelectedTable(){
         return selectedTable;
+    }
+    public void setOrderedTable(Table table){
+        orderedTable=table;
+    }
+    public Table getOrderedTable(){
+       return orderedTable;
+    }
+    public ArrayList<Table> getTables(){
+        return tables;
     }
     public RecyclerTableModelAdapter(ArrayList<Table> tables){
        this.tables = tables;

@@ -73,4 +73,10 @@ public class StorageData {
         }
         return data;
     }
+    public static void clearSP(String filename, Context context){
+        SharedPreferences preferences = context.getSharedPreferences(filename, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
+    }
 }

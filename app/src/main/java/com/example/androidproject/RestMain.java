@@ -47,15 +47,15 @@ public class RestMain extends BaseActivity implements View.OnClickListener {
             Intent intent = new Intent(this,TableModel.class);
             startActivity(intent);
         }
+        if (v.getId()== R.id.btn_clear_order){
+            StorageData.clearSP(StorageData.SP_SMS,this);
+            StorageData.clearSP(StorageData.SP_STRING_TIME,this);
+            StorageData.clearSP(StorageData.SP_STRING_TABLE,this);
+            getOrderDetails();
+        }
     }
-    @Override
-    protected void onResume() {
-     super.onResume();
+    private void getOrderDetails(){
         Table order=StorageData.getSP(StorageData.SP_STRING_TABLE,this,Table.class);
-        //TODO: check int null value
-        int loadLastTimeChoose=StorageData.getRaw(StorageData.RAW_STRING,mainContext);
-        if (loadLastTimeChoose>=0)
-            timeChoose.setSelection(loadLastTimeChoose,false);
         if (order!= null){
             View view_order=findViewById(R.id.order);
             view_order.setVisibility(View.VISIBLE);
@@ -64,15 +64,30 @@ public class RestMain extends BaseActivity implements View.OnClickListener {
             ((TextView)findViewById(R.id.smoke)).setVisibility(order.isSmoke()?View.VISIBLE:View.INVISIBLE);
             int tableOrderTime = (int) StorageData.getSP(StorageData.SP_STRING_TIME,this,int.class);
             ((EditText) findViewById(R.id.et_time_order)).setText("" + getResources().getStringArray(R.array.time_array)[tableOrderTime]);
+            findViewById(R.id.btn_clear_order).setVisibility(View.VISIBLE);
 
         }
-        else findViewById(R.id.order).setVisibility(View.INVISIBLE);
+        else {
+            findViewById(R.id.order).setVisibility(View.INVISIBLE);
+            findViewById(R.id.btn_clear_order).setVisibility(View.INVISIBLE);
+        }
+    }
+    @Override
+    protected void onResume() {
+     super.onResume();
+        //TODO: check int null value
+        int loadLastTimeChoose=StorageData.getRaw(StorageData.RAW_STRING,mainContext);
+        if (loadLastTimeChoose>=0)
+            timeChoose.setSelection(loadLastTimeChoose,false);
+        getOrderDetails();
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.resturaunt_menu);
         findViewById(R.id.btn_choose_table).setOnClickListener(this);
+        findViewById(R.id.btn_clear_order).setOnClickListener(this);
         timeChoose=findViewById(R.id.time_choose);
         mainContext=this;
         timeChoose.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
