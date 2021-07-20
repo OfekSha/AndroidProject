@@ -28,13 +28,13 @@ public class RestMain extends AppCompatActivity implements View.OnClickListener 
         if (v.getId()== R.id.btn_choose_table){
             Intent intent = new Intent(this,TableModel.class);
             startActivity(intent);
-            //startActivityForResult(intent,123);
         }
     }
     @Override
     protected void onResume() {
      super.onResume();
         Table order=StorageData.getSP(StorageData.SP_STRING_TABLE,this,Table.class);
+        //TODO: check int null value
         int loadLastTimeChoose=StorageData.getRaw(StorageData.RAW_STRING,mainContext);
         if (loadLastTimeChoose>=0)
             timeChoose.setSelection(loadLastTimeChoose,false);

@@ -64,7 +64,7 @@ public class TableModel extends AppCompatActivity implements IRespondDialog {
     // response yes to order accept ordering table
     @Override
     public void responseYES() {
-        // need to save data about table
+        // save data about table
         recyclerAdapter.getSelectedTable().setFull(true);
         recyclerAdapter.notifyDataSetChanged();
         StorageData.saveSP(StorageData.SP_STRING_TABLE, recyclerAdapter.getSelectedTable() ,this);
