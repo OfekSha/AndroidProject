@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,6 +27,8 @@ import java.util.ArrayList;
 public class RestMain extends AppCompatActivity implements View.OnClickListener {
     Spinner timeChoose;
     Context mainContext;
+    Menu menu;
+    static public String lastSMS="" ;
     @Override
     public void onClick(View v) {
         if (v.getId()== R.id.btn_choose_table){
@@ -74,5 +80,31 @@ public class RestMain extends AppCompatActivity implements View.OnClickListener 
 
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu=menu;
+        getMenuInflater().inflate(R.menu.menu,menu);
+        if (getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT)
+        {
+            menu.getItem(1).setVisible(true);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.exit:
+                ExitDialogFrag.newInstance().show(getSupportFragmentManager(), "dialog");
+                return true;
+            case R.id.lastSMS:
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+
+    }
 }
