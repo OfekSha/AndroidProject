@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.widget.Toast;
 
+import static java.security.AccessController.getContext;
+
 public class SMSBroadcastReciver extends BroadcastReceiver {
     private static final String TAG =
             com.example.androidproject.SMSBroadcastReciver.class.getSimpleName();
@@ -33,6 +35,7 @@ public class SMSBroadcastReciver extends BroadcastReceiver {
                 strMessage += " :" + msgs[i].getMessageBody() + "\n";
                 Toast.makeText(context, strMessage, Toast.LENGTH_LONG).show();
             }
+            StorageData.saveSP(StorageData.SP_SMS,strMessage,context); // save sms in sp for loading it from the menu.
         }
 
     }

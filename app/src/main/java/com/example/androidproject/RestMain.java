@@ -29,10 +29,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-public class RestMain extends AppCompatActivity implements View.OnClickListener {
+public class RestMain extends BaseActivity implements View.OnClickListener {
     Spinner timeChoose;
     Context mainContext;
-    Menu menu;
 
     private ActivityResultContracts.RequestMultiplePermissions requestMultiplePermissionsContract;
     private ActivityResultLauncher<String[]> multiplePermissionActivityResultLauncher;
@@ -103,33 +102,7 @@ public class RestMain extends AppCompatActivity implements View.OnClickListener 
 
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        this.menu=menu;
-        getMenuInflater().inflate(R.menu.menu,menu);
-        if (getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT)
-        {
-            menu.getItem(1).setVisible(true);
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
-            case R.id.exit:
-                ExitDialogFrag.newInstance().show(getSupportFragmentManager(), "dialog");
-                return true;
-            case R.id.lastSMS:
-
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-
-
-    }
 
     private void askPermissions() {
         if (!hasPermissions(PERMISSIONS)) {

@@ -29,7 +29,7 @@ public class ExitDialogFrag extends DialogFragment {
                 .setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                               getActivity().finish();
+                               getActivity().finishAffinity();;
                             }
                         }
                 )

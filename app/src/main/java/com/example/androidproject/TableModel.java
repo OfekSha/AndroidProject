@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-public class TableModel extends AppCompatActivity implements IRespondDialog {
+public class TableModel extends BaseActivity implements IRespondDialog {
     private RecyclerTableModelAdapter recyclerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

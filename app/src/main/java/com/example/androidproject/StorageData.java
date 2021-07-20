@@ -16,6 +16,7 @@ public class StorageData {
     public static final String SP_STRING_TABLE="table";
     public static final String SP_STRING_TIME="time";
     public static final String RAW_STRING="choose_time";
+    public static final String SP_SMS="sms";
 
     public static int getRaw(String filename , Context ctx) {
         FileInputStream fos;
