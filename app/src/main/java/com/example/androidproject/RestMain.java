@@ -1,9 +1,14 @@
 package com.example.androidproject;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,6 +33,14 @@ public class RestMain extends AppCompatActivity implements View.OnClickListener 
     Spinner timeChoose;
     Context mainContext;
     Menu menu;
+
+    private ActivityResultContracts.RequestMultiplePermissions requestMultiplePermissionsContract;
+    private ActivityResultLauncher<String[]> multiplePermissionActivityResultLauncher;
+    final String[] PERMISSIONS = {
+            Manifest.permission.RECEIVE_SMS,
+            Manifest.permission.READ_SMS
+
+    };
     static public String lastSMS="" ;
     @Override
     public void onClick(View v) {
@@ -76,6 +89,16 @@ public class RestMain extends AppCompatActivity implements View.OnClickListener 
                 return;
             }
         });
+
+        //requesting premisions for sms
+        requestMultiplePermissionsContract = new ActivityResultContracts.RequestMultiplePermissions();
+        multiplePermissionActivityResultLauncher = registerForActivityResult(requestMultiplePermissionsContract, isGranted -> {
+            if (isGranted.containsValue(false)) {
+                multiplePermissionActivityResultLauncher.launch(PERMISSIONS);
+            }
+        });
+
+        askPermissions();
     }
 
 
@@ -107,4 +130,24 @@ public class RestMain extends AppCompatActivity implements View.OnClickListener 
 
 
     }
+
+    private void askPermissions() {
+        if (!hasPermissions(PERMISSIONS)) {
+
+            multiplePermissionActivityResultLauncher.launch(PERMISSIONS);
+        }
+    }
+
+    private boolean hasPermissions(String[] permissions) {
+        if (permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
 }
