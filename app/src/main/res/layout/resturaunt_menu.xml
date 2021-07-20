@@ -78,7 +78,7 @@
                     android:layout_weight="1"
                     android:editable="false"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="none" />
             </LinearLayout>
 
         </LinearLayout>
