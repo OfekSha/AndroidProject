@@ -18,7 +18,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 public class RecyclerTableModelAdapter extends RecyclerView.Adapter<RecyclerTableModelAdapter.ViewHolder>{
-    private ArrayList<Table> tables;
+    public ArrayList<Table> tables;
     private Table selectedTable;
     private ViewHolder selectedHolder;
     public Table getSelectedTable(){

@@ -48,6 +48,8 @@ public class TableModel extends AppCompatActivity implements IRespondDialog {
         else {
 
             TableDialog.goodOrderDialog(this).show(getSupportFragmentManager(),"dialog");
+
+
         }
     }
     private ArrayList<Table> testTables(){
@@ -66,10 +68,16 @@ public class TableModel extends AppCompatActivity implements IRespondDialog {
     public void responseYES() {
         // save data about table
         recyclerAdapter.getSelectedTable().setFull(true);
-        recyclerAdapter.notifyDataSetChanged();
         StorageData.saveSP(StorageData.SP_STRING_TABLE, recyclerAdapter.getSelectedTable() ,this);
         StorageData.saveSP(StorageData.SP_STRING_TIME, StorageData.getRaw(StorageData.RAW_STRING,this) ,this);
         toastMsg("order committed for table number "+ recyclerAdapter.getSelectedTable().getId());
+        //updating recycler of data change
+        recyclerAdapter.tables=testTables();
+        int index=recyclerAdapter.tables.indexOf( recyclerAdapter.getSelectedTable());
+        if (index>-1){
+            recyclerAdapter.tables.set(index, recyclerAdapter.getSelectedTable());
+        }
+        recyclerAdapter.notifyDataSetChanged();
     }
     // response not to order accept ordering table
     @Override
