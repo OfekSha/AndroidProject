@@ -41,6 +41,10 @@ public class RestMain extends BaseActivity implements View.OnClickListener {
 
     };
     static public String lastSMS="" ;
+    private void stopService() {
+        Intent serviceIntent = new Intent(this, ForegroundService.class);
+        stopService(serviceIntent);
+    }
     @Override
     public void onClick(View v) {
         if (v.getId()== R.id.btn_choose_table){
@@ -52,6 +56,7 @@ public class RestMain extends BaseActivity implements View.OnClickListener {
             StorageData.clearSP(StorageData.SP_STRING_TIME,this);
             StorageData.clearSP(StorageData.SP_STRING_TABLE,this);
             getOrderDetails();
+            stopService();
         }
     }
     private void getOrderDetails(){
