@@ -1,11 +1,13 @@
 package com.example.androidproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -81,7 +83,19 @@ public class TableModel extends BaseActivity implements IRespondDialog {
 
         int indexOrder=recyclerAdapter.getTables().indexOf( recyclerAdapter.getSelectedTable());
         recyclerAdapter.notifyItemChanged(indexOrder);
+        stopService();
+        startService();
 
+    }
+    private void startService() {
+        Intent serviceIntent = new Intent(this, ForegroundService.class);
+        int tableOrderTime = (int) StorageData.getSP(StorageData.SP_STRING_TIME,this,int.class);
+        serviceIntent.putExtra("inputExtra", getResources().getStringArray(R.array.time_array)[tableOrderTime]);
+        ContextCompat.startForegroundService(this, serviceIntent);
+    }
+    private void stopService() {
+        Intent serviceIntent = new Intent(this, ForegroundService.class);
+        stopService(serviceIntent);
     }
     // response not to order accept ordering table
     @Override
