@@ -9,17 +9,17 @@
     <LinearLayout
         android:layout_width="366dp"
         android:layout_height="315dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginStart="50dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.355"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="397dp"
-            android:layout_height="91dp"
+            android:layout_height="49dp"
             android:orientation="horizontal">
 
             <TextView
@@ -54,7 +54,7 @@
             <include
                 layout="@layout/model_table_view"
                 android:layout_width="match_parent"
-                android:layout_height="142dp"
+                android:layout_height="44dp"
                 android:layout_weight="8" />
 
             <LinearLayout
@@ -74,7 +74,7 @@
                 <EditText
                     android:id="@+id/et_time_order"
                     android:layout_width="wrap_content"
-                    android:layout_height="64dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:editable="false"
                     android:ems="10"
@@ -87,10 +87,11 @@
 
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="411dp"
-        android:layout_height="72dp"
+        android:layout_width="412dp"
+        android:layout_height="52dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
