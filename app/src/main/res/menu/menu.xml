@@ -10,10 +10,4 @@
         android:icon="@android:drawable/ic_notification_clear_all"
         android:title="Exit"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/settings"
-        android:icon="@android:drawable/ic_menu_manage"
-        android:title="Settings"
-        android:visible="false"
-        app:showAsAction="always" />
 </menu>

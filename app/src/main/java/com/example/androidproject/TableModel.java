@@ -87,16 +87,7 @@ public class TableModel extends BaseActivity implements IRespondDialog {
         startService();
 
     }
-    private void startService() {
-        Intent serviceIntent = new Intent(this, ForegroundService.class);
-        int tableOrderTime = (int) StorageData.getSP(StorageData.SP_STRING_TIME,this,int.class);
-        serviceIntent.putExtra("inputExtra", getResources().getStringArray(R.array.time_array)[tableOrderTime]);
-        ContextCompat.startForegroundService(this, serviceIntent);
-    }
-    private void stopService() {
-        Intent serviceIntent = new Intent(this, ForegroundService.class);
-        stopService(serviceIntent);
-    }
+
     // response not to order accept ordering table
     @Override
     public void responseNOT() {

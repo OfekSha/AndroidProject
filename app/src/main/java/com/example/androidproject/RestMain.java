@@ -41,10 +41,6 @@ public class RestMain extends BaseActivity implements View.OnClickListener {
 
     };
     static public String lastSMS="" ;
-    private void stopService() {
-        Intent serviceIntent = new Intent(this, ForegroundService.class);
-        stopService(serviceIntent);
-    }
     @Override
     public void onClick(View v) {
         if (v.getId()== R.id.btn_choose_table){
@@ -80,7 +76,6 @@ public class RestMain extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
      super.onResume();
-        //TODO: check int null value
         int loadLastTimeChoose=StorageData.getRaw(StorageData.RAW_STRING,mainContext);
         if (loadLastTimeChoose>=0)
             timeChoose.setSelection(loadLastTimeChoose,false);

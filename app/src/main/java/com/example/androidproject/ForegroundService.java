@@ -48,7 +48,7 @@ public class ForegroundService extends Service {
     public static final String CHANNEL_ID = "ForegroundServiceChannel";
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        String input = intent.getStringExtra("inputExtra");
+        String input = intent.getStringExtra("inputExtra"); // 00:00
         String hour=input.substring(0,input.indexOf(":"));
         String minute=input.substring(input.indexOf(":")+1);
         ordertime=Calendar.getInstance();

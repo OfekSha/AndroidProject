@@ -1,23 +1,30 @@
 package com.example.androidproject;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 public class BaseActivity  extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
-        if (getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT)
-        {
-            menu.getItem(1).setVisible(true);
-        }
         return super.onCreateOptionsMenu(menu);
     }
-
+    protected void startService() {
+        Intent serviceIntent = new Intent(this, ForegroundService.class);
+        int tableOrderTime = (int) StorageData.getSP(StorageData.SP_STRING_TIME,this,int.class);
+        serviceIntent.putExtra("inputExtra", getResources().getStringArray(R.array.time_array)[tableOrderTime]);
+        ContextCompat.startForegroundService(this, serviceIntent);
+    }
+    protected void stopService() {
+        Intent serviceIntent = new Intent(this, ForegroundService.class);
+        stopService(serviceIntent);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
