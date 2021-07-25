@@ -15,16 +15,22 @@ public class BaseActivity  extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu,menu);
         return super.onCreateOptionsMenu(menu);
     }
+    //starting the sevice with the needed data
     protected void startService() {
+        //the intent that Identifies  the service  to be started
         Intent serviceIntent = new Intent(this, ForegroundService.class);
+        //getting the index of the time that was saved [from res/values/array]
         int tableOrderTime = (int) StorageData.getSP(StorageData.SP_STRING_TIME,this,int.class);
+        //saving it to give it to the service
         serviceIntent.putExtra("inputExtra", getResources().getStringArray(R.array.time_array)[tableOrderTime]);
         ContextCompat.startForegroundService(this, serviceIntent);
     }
+    // ending the service with the iding intent
     protected void stopService() {
         Intent serviceIntent = new Intent(this, ForegroundService.class);
         stopService(serviceIntent);
     }
+    // responding to user selecting items on the menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())

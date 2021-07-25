@@ -21,8 +21,11 @@ public class ForegroundService extends Service {
         @Override
         public void run() {
             Calendar now=Calendar.getInstance();
+            //thread runs as long as we are  before the order time
             while (now.before(ordertime)) {
                 now.add(Calendar.MINUTE, notificationTime);
+                // if now_time + the notification time is bigger then the time the client comes to eat
+                // then change message , cut time by half
                 if (now.after(ordertime)){
                     updateNotification("less then "+notificationTime+" minutes");
                     notificationTime/=2;
@@ -35,6 +38,7 @@ public class ForegroundService extends Service {
 
         }
     }
+    // rebuild notification  with new new remining time
     private void updateNotification(String text){
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Table ordering service reminder")
@@ -49,13 +53,17 @@ public class ForegroundService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String input = intent.getStringExtra("inputExtra"); // 00:00
+        //string manipulation -separating to hour and minute
         String hour=input.substring(0,input.indexOf(":"));
         String minute=input.substring(input.indexOf(":")+1);
+        // string -> calender
         ordertime=Calendar.getInstance();
         ordertime.set(Calendar.HOUR_OF_DAY, Integer.valueOf(hour));
         ordertime.set(Calendar.MINUTE, Integer.valueOf(minute));
+        //create a Notification Channel for us to show the user the remaining   time
         createNotificationChannel();
         Intent notificationIntent = new Intent(this, BaseActivity.class);
+        // creating an intent to be used by the notification
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, 0);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -65,6 +73,7 @@ public class ForegroundService extends Service {
                 .setContentIntent(pendingIntent)
                 .build();
         startForeground(1, notification);
+        //logic thread - updates the time
         Worker worker=new Worker();
         worker.start();
         return START_NOT_STICKY;

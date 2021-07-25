@@ -99,6 +99,7 @@ public class RecyclerTableModelAdapter extends RecyclerView.Adapter<RecyclerTabl
             seats_tv.setText("Seats: "+value);
         }
 
+        // when set null is true you get the white space , where there is no table
         public void setIsNull(boolean value) {
             if (value) {
                 smoke_tv.setVisibility(View.INVISIBLE);

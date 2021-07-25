@@ -26,12 +26,14 @@ public class TableModel extends BaseActivity implements IRespondDialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restuarant_model_view);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        //getting the ordered table in order to make sure it's marked off
         Table orderedTable=StorageData.getSP(StorageData.SP_STRING_TABLE,this,Table.class);
         ArrayList<Table> data=testTables();
         int index=data.indexOf(orderedTable);
         if (index>-1){
             data.set(index,orderedTable);
         }
+        // setting up the recycler
         recyclerAdapter = new RecyclerTableModelAdapter(data);
         recyclerAdapter.setOrderedTable(orderedTable);
         recyclerView.setAdapter(recyclerAdapter);
@@ -41,7 +43,9 @@ public class TableModel extends BaseActivity implements IRespondDialog {
         recyclerView.setDrawingCacheEnabled(true);
     }
 
+    // response for when the user presses the order button
     public void orderBtnClicked(View v){
+        // the function puts the appropriate dialog for each case [table is full -cant select  , no table selected - tale the user  , and an available table confirm  ]
         if (recyclerAdapter.getSelectedTable()==null) {
             TableDialog.errorOrderDialog(this, "no table selected").show(getSupportFragmentManager(), "dialog");
         }
@@ -54,6 +58,7 @@ public class TableModel extends BaseActivity implements IRespondDialog {
 
         }
     }
+    // creates  the tables
     private ArrayList<Table> testTables(){
         ArrayList<Table> test= new ArrayList<Table>();
         for (int i=0;i<50;i++){
