@@ -55,6 +55,7 @@ public class RestMain extends BaseActivity implements View.OnClickListener {
             stopService();
         }
     }
+    // information on the last order made by user (if there is not one - shows nothing )
     private void getOrderDetails(){
         Table order=StorageData.getSP(StorageData.SP_STRING_TABLE,this,Table.class);
         if (order!= null){

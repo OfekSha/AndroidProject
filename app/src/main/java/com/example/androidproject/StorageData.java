@@ -18,6 +18,7 @@ public class StorageData {
     public static final String RAW_STRING="choose_time";
     public static final String SP_SMS="sms";
 
+    // used for time Array index saving (saving time user  chose ) res/values/arrays.xml
     public static int getRaw(String filename , Context ctx) {
         FileInputStream fos;
         int data=0;

@@ -83,6 +83,7 @@ public class ForegroundService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel serviceChannel = new NotificationChannel(

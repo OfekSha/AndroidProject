@@ -75,14 +75,12 @@ public class RecyclerTableModelAdapter extends RecyclerView.Adapter<RecyclerTabl
             if (value) {
                 table_tv.setBackgroundTintList(ColorStateList.valueOf(RED));
                 chair_tv.setBackgroundTintList(ColorStateList.valueOf(RED));
-                //table_tv.setBackgroundResource(R.drawable.table_red);
-                //chair_tv.setBackgroundResource(R.drawable.chair_red);
+
             }
             else {
                 table_tv.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                 chair_tv.setBackgroundTintList(ColorStateList.valueOf(GREEN));
-               // table_tv.setBackgroundResource(R.drawable.table_green);
-                //chair_tv.setBackgroundResource(R.drawable.chair_green);
+
             }
         }
 

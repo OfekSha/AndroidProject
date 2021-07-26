@@ -15,7 +15,7 @@ public class ExitDialogFrag extends DialogFragment {
      * Create a new instance of MyDialogFragment, providing "num"
      * as an argument.
      */
-    static com.example.androidproject.ExitDialogFrag newInstance() {
+    static ExitDialogFrag newInstance() {
         com.example.androidproject.ExitDialogFrag f = new com.example.androidproject.ExitDialogFrag();
         return f;
     }
@@ -29,7 +29,7 @@ public class ExitDialogFrag extends DialogFragment {
                 .setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                               getActivity().finishAffinity();;
+                               getActivity().finishAffinity();
                             }
                         }
                 )
