@@ -1,20 +1,18 @@
-package com.example.androidproject;
+package com.example.androidproject.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
+import com.example.androidproject.IRespondDialog;
+import com.example.androidproject.R;
+import com.example.androidproject.RecyclerTableModelAdapter;
+import com.example.androidproject.StorageData;
+import com.example.androidproject.TableDialog;
+import com.example.androidproject.data.Table;
 
 import java.util.ArrayList;
 
@@ -27,7 +25,7 @@ public class TableModel extends BaseActivity implements IRespondDialog {
         setContentView(R.layout.restuarant_model_view);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
         //getting the ordered table in order to make sure it's marked off
-        Table orderedTable=StorageData.getSP(StorageData.SP_STRING_TABLE,this,Table.class);
+        Table orderedTable= StorageData.getSP(StorageData.SP_STRING_TABLE,this,Table.class);
         ArrayList<Table> data=testTables();
         int index=data.indexOf(orderedTable);
         if (index>-1){

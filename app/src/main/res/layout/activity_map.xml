@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".MainActivity">
+    >
 
-    <com.example.finalproj.MultiSpinner
+    <com.example.androidproject.MultiSpinner
         android:id="@+id/multi_spinner"
         android:layout_width="189dp"
         android:layout_height="76dp"

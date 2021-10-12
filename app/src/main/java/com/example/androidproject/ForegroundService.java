@@ -12,6 +12,8 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import com.example.androidproject.activities.BaseActivity;
+
 import java.util.Calendar;
 
 public class ForegroundService extends Service {

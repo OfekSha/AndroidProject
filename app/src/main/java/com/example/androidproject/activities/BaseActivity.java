@@ -1,4 +1,4 @@
-package com.example.androidproject;
+package com.example.androidproject.activities;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -8,6 +8,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
+import com.example.androidproject.ExitDialogFrag;
+import com.example.androidproject.ForegroundService;
+import com.example.androidproject.R;
+import com.example.androidproject.StorageData;
 
 public class BaseActivity  extends AppCompatActivity {
     @Override

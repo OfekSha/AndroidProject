@@ -1,4 +1,4 @@
-package com.example.androidproject;
+package com.example.androidproject.data;
 
 import java.util.Objects;
 

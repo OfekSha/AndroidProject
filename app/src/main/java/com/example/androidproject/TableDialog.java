@@ -14,7 +14,7 @@ public class TableDialog extends DialogFragment {
      * Create a new instance of MyDialogFragment, providing "num"
      * as an argument.
      */
-    static TableDialog goodOrderDialog(IRespondDialog mainActivity) {
+    public static TableDialog goodOrderDialog(IRespondDialog mainActivity) {
         TableDialog f = new TableDialog();
         f.mainActivity=mainActivity;
         f.title="Order Accept";
@@ -23,7 +23,7 @@ public class TableDialog extends DialogFragment {
         f.negative="No";
         return f;
     }
-    static TableDialog errorOrderDialog(IRespondDialog mainActivity, String error) {
+    public static TableDialog errorOrderDialog(IRespondDialog mainActivity, String error) {
         TableDialog f = new TableDialog();
         f.mainActivity=mainActivity;
         f.title="Order Error";
@@ -42,6 +42,7 @@ public class TableDialog extends DialogFragment {
                 .setPositiveButton(positive,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
+                                if (mainActivity!=null)
                                 mainActivity.responseYES();
                             }
                         }
@@ -49,6 +50,7 @@ public class TableDialog extends DialogFragment {
                 .setNegativeButton(negative,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
+                                if (mainActivity!=null)
                                 mainActivity.responseNOT();
                             }
                         }
@@ -61,6 +63,7 @@ public class TableDialog extends DialogFragment {
                     .setNegativeButton(negative,
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
+                                    if (mainActivity!=null)
                                     mainActivity.responseNOT();
                                 }
                             }
