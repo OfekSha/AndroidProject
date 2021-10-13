@@ -11,6 +11,7 @@
         android:layout_width="416dp"
         android:layout_height="288dp"
         android:backgroundTint="#00FFFFFF"
+        android:src="@drawable/android_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
