@@ -7,16 +7,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.androidproject.FireBaseListener;
 import com.example.androidproject.IRespondDialog;
 import com.example.androidproject.R;
 import com.example.androidproject.RecyclerTableModelAdapter;
 import com.example.androidproject.StorageData;
 import com.example.androidproject.TableDialog;
+import com.example.androidproject.controller.FireBaseConnection;
+import com.example.androidproject.data.Restaurant;
 import com.example.androidproject.data.Table;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class TableModel extends BaseActivity implements IRespondDialog {
+public class TableModel extends BaseActivity implements IRespondDialog, FireBaseListener {
     private RecyclerTableModelAdapter recyclerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +31,13 @@ public class TableModel extends BaseActivity implements IRespondDialog {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
         //getting the ordered table in order to make sure it's marked off
         Table orderedTable= StorageData.getSP(StorageData.SP_STRING_TABLE,this,Table.class);
-        ArrayList<Table> data=testTables();
-        int index=data.indexOf(orderedTable);
-        if (index>-1){
-            data.set(index,orderedTable);
+        ArrayList<Table> data=new ArrayList<Table>();
+        int index;
+        if(orderedTable!=null) {
+            index = data.indexOf(orderedTable);
+            if (index > -1) {
+                data.set(index, orderedTable);
+            }
         }
         // setting up the recycler
         recyclerAdapter = new RecyclerTableModelAdapter(data);
@@ -40,6 +48,11 @@ public class TableModel extends BaseActivity implements IRespondDialog {
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemViewCacheSize(50000);
         recyclerView.setDrawingCacheEnabled(true);
+
+        // connect database and read live data of tables.
+        String table_id=StorageData.getSP(StorageData.SP_STRING_REST,this, Restaurant.class).getId();
+        FireBaseConnection.instance.changeListener(this);
+        FireBaseConnection.instance.connectData(table_id);
     }
 
     // response for when the user presses the order button
@@ -103,4 +116,41 @@ public class TableModel extends BaseActivity implements IRespondDialog {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onFailed() {
+
+    }
+
+    @Override
+    public void onDataChanged(Map<String, Object> doc) {
+        ArrayList<Table> tables=new ArrayList<Table>();
+        ((ArrayList)doc.get("tables")).forEach(el->{
+            HashMap tableHashMap = (HashMap)((HashMap) el).get("Table");
+            Table table;
+            table=new Table(fromLongToInt((Long)tableHashMap.get("id")),fromLongToInt((Long)tableHashMap.get("seats")),(Boolean)tableHashMap.get("isSmoke"));
+            tables.add(table);
+
+        });
+        recyclerAdapter.setTables(tables);
+    }
+    private int fromLongToInt(Long l){
+        return l.intValue();
+    }
+    @Override
+    public void onDataRemoved(Map<String, Object> doc) {
+
+    }
+
+    @Override
+    public void onDataAdded(Map<String, Object> doc) {
+        ArrayList<Table> tables=new ArrayList<Table>();
+        ((ArrayList)doc.get("tables")).forEach(el->{
+            HashMap tableHashMap = (HashMap) el;
+            Table table;
+            table=new Table(Integer.valueOf((Integer) tableHashMap.get("id")),Integer.valueOf((Integer) tableHashMap.get("seats")),Boolean.valueOf((boolean)tableHashMap.get("isSmoke")));
+            tables.add(table);
+
+        });
+        recyclerAdapter.setTables(tables);
+    }
 }

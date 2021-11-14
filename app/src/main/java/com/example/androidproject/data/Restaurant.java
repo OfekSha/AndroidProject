@@ -5,13 +5,14 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.Serializable;
 
 public class Restaurant implements Serializable {
-    private int id;
+    private String id;
     private String name;
     private String owner_name="none";
     private String phone="none";
     private String address="none";
     private LatLng pos;
     boolean isAvailable=true;
+
     public Restaurant(String name, String owner_name, String phone, String address,double x, double y, boolean isAvailable) {
         this( name,  owner_name,  phone,  address,  isAvailable);
         pos = new LatLng(x, y);
@@ -29,11 +30,11 @@ public class Restaurant implements Serializable {
         this.isAvailable = isAvailable;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

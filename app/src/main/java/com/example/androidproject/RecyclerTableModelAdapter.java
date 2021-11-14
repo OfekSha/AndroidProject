@@ -19,6 +19,10 @@ public class RecyclerTableModelAdapter extends RecyclerView.Adapter<RecyclerTabl
     private Table selectedTable;
     private Table orderedTable;
     private ViewHolder selectedHolder;
+    public void setTables(ArrayList<Table> tables){
+        this.tables=tables;
+        notifyDataSetChanged();
+    }
     public Table getSelectedTable(){
         return selectedTable;
     }
