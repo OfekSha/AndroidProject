@@ -55,6 +55,22 @@ public class FireBaseConnection {
             }
         });
     }
+    public void connectCollectionInDocument(String id,String collection,String client_id,HashMap data){
+        final CollectionReference docRef = db.collection("Restaurants");
+        docRef.document(id).collection(collection).document(client_id).set(data);
+        docRef.document(id).collection(collection).document(client_id).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    listener.onFailed();
+                    return;
+                }
+                if (snapshot != null && snapshot.exists()){
+                    listener.onDataChanged(snapshot.getData());
+                }
+            }
+        });
+    }
     public void connectData(){
         ArrayList<Restaurant> temp=new ArrayList<Restaurant>();
         //Restaurants

@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 
 import com.example.androidproject.IRespondDialog;
 import com.example.androidproject.R;
+import com.example.androidproject.StorageData;
 import com.example.androidproject.TableDialog;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -81,6 +82,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             TableDialog.errorOrderDialog(this,"Wellcome "+account.getDisplayName()).show(getSupportFragmentManager(), "dialog");
             // Signed in successfully, show authenticated UI.
             //updateUI(account);
+            StorageData.saveSP("google_details",account.getId(),this );
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
