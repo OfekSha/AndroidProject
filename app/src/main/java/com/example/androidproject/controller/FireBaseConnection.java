@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 
 import com.example.androidproject.FireBaseListener;
 import com.example.androidproject.data.Restaurant;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
