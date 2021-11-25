@@ -87,7 +87,7 @@ public class TableModel extends BaseActivity implements IRespondDialog, FireBase
         String client_id=StorageData.getSP("google_details",this ,String.class);
         HashMap data=new HashMap();
         data.put("table_id",recyclerAdapter.getSelectedTable().getId());
-        data.put("time",StorageData.getRaw(StorageData.RAW_STRING,this));
+        data.put("time",getResources().getStringArray(R.array.time_array)[StorageData.getRaw(StorageData.RAW_STRING,this)]);
         data.put("approved",false);
         data.put("client_id", client_id);
         FireBaseConnection.instance.connectCollectionInDocument(restaurant_id,"requests",client_id,data);
