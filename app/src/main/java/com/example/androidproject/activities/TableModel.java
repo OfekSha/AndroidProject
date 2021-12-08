@@ -23,12 +23,13 @@ import java.util.Map;
 
 public class TableModel extends BaseActivity implements IRespondDialog, FireBaseListener {
     private RecyclerTableModelAdapter recyclerAdapter;
+    private  RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restuarant_model_view);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
         //getting the ordered table in order to make sure it's marked off
         Table orderedTable= StorageData.getSP(StorageData.SP_STRING_TABLE,this,Table.class);
         ArrayList<Table> data=new ArrayList<Table>();
@@ -133,14 +134,24 @@ public class TableModel extends BaseActivity implements IRespondDialog, FireBase
             }
         }
         else { // restaurant data has change
+            int width=((Long)doc.get("model_width")).intValue();
+            int height=((Long)doc.get("model_height")).intValue();
             ArrayList<Table> tables = new ArrayList<Table>();
+            for (int i=0;i<width;i++){
+                for (int j =0;j<height;j++){
+                    tables.add(null);
+                }
+            }
             ((ArrayList) doc.get("tables")).forEach(el -> {
                 HashMap tableHashMap = (HashMap) ((HashMap) el).get("Table");
                 Table table;
+                int x=((Long)tableHashMap.get("x")).intValue();
+                int y=((Long)tableHashMap.get("y")).intValue();
                 table = new Table(fromLongToInt((Long) tableHashMap.get("id")), fromLongToInt((Long) tableHashMap.get("seats")), (Boolean) tableHashMap.get("isSmoke"));
-                tables.add(table);
+                tables.set(x+y*width,table);
 
             });
+            recyclerView.setLayoutManager(new GridLayoutManager(this,width));
             recyclerAdapter.setTables(tables);
         }
     }
@@ -155,13 +166,22 @@ public class TableModel extends BaseActivity implements IRespondDialog, FireBase
     @Override
     public void onDataAdded(Map<String, Object> doc) {
         ArrayList<Table> tables=new ArrayList<Table>();
+        int width=((Long)doc.get("model_width")).intValue();
+        int height=((Long)doc.get("model_height")).intValue();
+        for (int i=0;i<width;i++){
+            for (int j =0;j<height;j++){
+                tables.add(null);
+            }
+        }
         ((ArrayList)doc.get("tables")).forEach(el->{
             HashMap tableHashMap = (HashMap) el;
             Table table;
+            int x=((Long)tableHashMap.get("x")).intValue();
+            int y=((Long)tableHashMap.get("y")).intValue();
             table=new Table(Integer.valueOf((Integer) tableHashMap.get("id")),Integer.valueOf((Integer) tableHashMap.get("seats")),Boolean.valueOf((boolean)tableHashMap.get("isSmoke")));
-            tables.add(table);
-
+            tables.set(x+y*width,table);
         });
+        recyclerView.setLayoutManager(new GridLayoutManager(this,width));
         recyclerAdapter.setTables(tables);
     }
 }
