@@ -24,6 +24,7 @@ import java.util.Map;
 public class TableModel extends BaseActivity implements IRespondDialog, FireBaseListener {
     private RecyclerTableModelAdapter recyclerAdapter;
     private  RecyclerView recyclerView;
+    private int width,height;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -54,6 +55,7 @@ public class TableModel extends BaseActivity implements IRespondDialog, FireBase
         String restaurant_id=StorageData.getSP(StorageData.SP_STRING_REST,this, Restaurant.class).getId();
         FireBaseConnection.instance.changeListener(this);
         FireBaseConnection.instance.connectData(restaurant_id);
+        FireBaseConnection.instance.connectCollectionInDocument(restaurant_id,"data","tables",null);
     }
 
     // response for when the user presses the order button
@@ -133,26 +135,30 @@ public class TableModel extends BaseActivity implements IRespondDialog, FireBase
                 recyclerAdapter.notifyItemChanged(indexOrder);
             }
         }
-        else { // restaurant data has change
-            int width=((Long)doc.get("model_width")).intValue();
-            int height=((Long)doc.get("model_height")).intValue();
+        else if (doc.get("id")!=null) { // restaurant data has change
+            width = ((Long) doc.get("model_width")).intValue();
+            height = ((Long) doc.get("model_height")).intValue();
             ArrayList<Table> tables = new ArrayList<Table>();
-            for (int i=0;i<width;i++){
-                for (int j =0;j<height;j++){
+            for (int i = 0; i < width; i++) {
+                for (int j = 0; j < height; j++) {
                     tables.add(null);
                 }
             }
-            ((ArrayList) doc.get("tables")).forEach(el -> {
-                HashMap tableHashMap = (HashMap) ((HashMap) el).get("Table");
+            recyclerView.setLayoutManager(new GridLayoutManager(this,width));
+            recyclerAdapter.setTables(tables);
+        }else if(doc.get("Table")!=null){
+            ArrayList<Table> tables = recyclerAdapter.getTables();
+            ((ArrayList) doc.get("Table")).forEach(el -> {
+                HashMap tableHashMap = (HashMap) ((HashMap) el);
                 Table table;
                 int x=((Long)tableHashMap.get("x")).intValue();
                 int y=((Long)tableHashMap.get("y")).intValue();
-                table = new Table(fromLongToInt((Long) tableHashMap.get("id")), fromLongToInt((Long) tableHashMap.get("seats")), (Boolean) tableHashMap.get("isSmoke"));
+                //TODO: fix from smoke to isSmoke in the database need to check desktop program.
+                table = new Table(fromLongToInt((Long) tableHashMap.get("id")), fromLongToInt((Long) tableHashMap.get("seats")), (Boolean) tableHashMap.get("smoke"));
                 tables.set(x+y*width,table);
-
+                recyclerAdapter.setTables(tables);
             });
-            recyclerView.setLayoutManager(new GridLayoutManager(this,width));
-            recyclerAdapter.setTables(tables);
+
         }
     }
     private int fromLongToInt(Long l){

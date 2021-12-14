@@ -56,6 +56,7 @@ public class FireBaseConnection {
     }
     public void connectCollectionInDocument(String id,String collection,String client_id,HashMap data){
         final CollectionReference docRef = db.collection("Restaurants");
+        if (data!=null)
         docRef.document(id).collection(collection).document(client_id).set(data);
         docRef.document(id).collection(collection).document(client_id).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
