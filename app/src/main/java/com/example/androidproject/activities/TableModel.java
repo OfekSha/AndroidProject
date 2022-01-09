@@ -90,13 +90,12 @@ public class TableModel extends BaseActivity implements IRespondDialog, FireBase
         String client_id=StorageData.getSP("google_details",this ,String.class);
         HashMap data=new HashMap();
         data.put("table_id",recyclerAdapter.getSelectedTable().getId());
+        data.put("table_smoke",recyclerAdapter.getSelectedTable().isSmoke());
+        data.put("table_seats",recyclerAdapter.getSelectedTable().getSeats());
         data.put("time",getResources().getStringArray(R.array.time_array)[StorageData.getRaw(StorageData.RAW_STRING,this)]);
         data.put("approved",false);
         data.put("client_id", client_id);
         FireBaseConnection.instance.connectCollectionInDocument(restaurant_id,"requests",client_id,data);
-        stopService();
-        startService();
-
     }
 
     // response not to order accept ordering table
@@ -116,13 +115,15 @@ public class TableModel extends BaseActivity implements IRespondDialog, FireBase
     @Override
     public void onDataChanged(Map<String, Object> doc) {
         if (doc.get("table_id")!=null){ // table order request change
-            if ((boolean)doc.get("approved")){ // if table approve by the restaurant do logic operations for show client his table.
+            if ((Boolean)doc.get("approved")){ // if table approve by the restaurant do logic operations for show client his table.
                 // save data about table
                 //check old order
                 if (recyclerAdapter.getOrderedTable()!=null){
                     recyclerAdapter.getOrderedTable().setFull(false);
                     int indexPrevOrder=recyclerAdapter.getTables().indexOf( recyclerAdapter.getOrderedTable());
                     recyclerAdapter.notifyItemChanged(indexPrevOrder);
+                    stopService();
+                    startService();
                 }
                 //selected table is the new ordered table
                 recyclerAdapter.getSelectedTable().setFull(true);
@@ -134,6 +135,7 @@ public class TableModel extends BaseActivity implements IRespondDialog, FireBase
                 int indexOrder=recyclerAdapter.getTables().indexOf( recyclerAdapter.getSelectedTable());
                 recyclerAdapter.notifyItemChanged(indexOrder);
             }
+
         }
         else if (doc.get("id")!=null) { // restaurant data has change
             width = ((Long) doc.get("model_width")).intValue();
@@ -146,8 +148,9 @@ public class TableModel extends BaseActivity implements IRespondDialog, FireBase
             }
             recyclerView.setLayoutManager(new GridLayoutManager(this,width));
             recyclerAdapter.setTables(tables);
-        }else if(doc.get("Table")!=null){
+        }else if(doc.get("Table")!=null){ // tables change
             ArrayList<Table> tables = recyclerAdapter.getTables();
+            int tableOrderTime =  StorageData.getRaw(StorageData.RAW_STRING,this);
             ((ArrayList) doc.get("Table")).forEach(el -> {
                 HashMap tableHashMap = (HashMap) ((HashMap) el);
                 Table table;
@@ -155,7 +158,11 @@ public class TableModel extends BaseActivity implements IRespondDialog, FireBase
                 int y=((Long)tableHashMap.get("y")).intValue();
                 //TODO: fix from smoke to isSmoke in the database need to check desktop program.
                 table = new Table(fromLongToInt((Long) tableHashMap.get("id")), fromLongToInt((Long) tableHashMap.get("seats")), (Boolean) tableHashMap.get("smoke"));
+                HashMap freeByTime= (HashMap) tableHashMap.get("isFreeByTime");
+                //table.setFull((Boolean)tableHashMap.get("free"));
+                table.setFull(!((Boolean)freeByTime.get("" + getResources().getStringArray(R.array.time_array)[tableOrderTime])));
                 tables.set(x+y*width,table);
+
                 recyclerAdapter.setTables(tables);
             });
 

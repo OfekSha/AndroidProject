@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 
 import androidx.activity.result.ActivityResult;
@@ -23,7 +24,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener , IRespondDialog {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     private static final int RC_SIGN_IN = 152;
     private static final String TAG = "google_login";
@@ -79,7 +80,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            TableDialog.errorOrderDialog(this,"Wellcome "+account.getDisplayName()).show(getSupportFragmentManager(), "dialog");
+            Toast.makeText(this,"Wellcome "+account.getDisplayName(),Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this,MapActivity.class);
+            startActivity(intent);
             // Signed in successfully, show authenticated UI.
             //updateUI(account);
             StorageData.saveSP("google_details",account.getId(),this );
@@ -98,17 +101,5 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
             // ...
         }
-    }
-
-    @Override
-    public void responseYES() {
-        Intent intent = new Intent(this,MapActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void responseNOT() {
-        Intent intent = new Intent(this,MapActivity.class);
-        startActivity(intent);
     }
 }

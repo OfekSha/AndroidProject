@@ -118,14 +118,22 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback , Mu
         AtomicInteger idx= new AtomicInteger();
         resPos.stream().forEach((restaurant)->{
 
-            if (restaurant.getId().equals(doc.get("id")))
+            if (restaurant.getId().equals(doc.get("id"))) {
                 idx.set(i.get());
+                restaurant.setAvailable((Boolean)doc.get("isAvailable"));
+                restaurant.setPhone((String)doc.get("phoneNumber"));
+                restaurant.setOwner_name((String)doc.get("ownerName"));
+                restaurant.setName((String)doc.get("name"));
+                restaurant.setAddress((String)doc.get("address"));
+            }
             i.getAndIncrement();
-
         });
         HashMap<String, Double> pos = (HashMap) doc.get("position");
         LatLng latLng=new LatLng(pos.get("latitude"), pos.get("longitude"));
-        resMarkers.get(idx.get()).setPosition(latLng);
+        Marker marker = resMarkers.get(idx.get());;
+        marker.setPosition(latLng);
+        marker.setIcon(BitmapDescriptorFactory.fromResource((Boolean)doc.get("isAvailable") ? ok : notOk));
+        marker.setTitle((String)doc.get("name"));
     }
 
     @Override
@@ -134,8 +142,9 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback , Mu
         AtomicInteger idx= new AtomicInteger();
         resPos.stream().forEach((restaurant)->{
 
-            if (restaurant.getId().equals(doc.get("id")))
+            if (restaurant.getId().equals(doc.get("id"))) {
                 idx.set(i.get());
+            }
             i.getAndIncrement();
 
         });
@@ -146,7 +155,7 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback , Mu
     public void onDataAdded(Map<String, Object> doc) {
         HashMap<String, Double> pos = (HashMap) doc.get("position");
         resPos.add(new Restaurant((String)doc.get("name"), (String)doc.get("ownerName"), (String)doc.get("phoneNumber"), (String)doc.get("address"),
-                pos.get("latitude"), pos.get("longitude"), true));
+                pos.get("latitude"), pos.get("longitude"), (Boolean)doc.get("isAvailable")));
         Restaurant temp = resPos.get(resPos.size() - 1);
         temp.setId((String)doc.get("id"));
         MarkerOptions marker;

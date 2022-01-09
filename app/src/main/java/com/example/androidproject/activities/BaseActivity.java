@@ -33,7 +33,12 @@ public class BaseActivity  extends AppCompatActivity {
     // ending the service with the iding intent
     protected void stopService() {
         Intent serviceIntent = new Intent(this, ForegroundService.class);
-        stopService(serviceIntent);
+        try {
+            stopService(serviceIntent);
+        }catch (SecurityException e){
+            e.printStackTrace();
+            return;
+        }
     }
     // responding to user selecting items on the menu
     @Override
